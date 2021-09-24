@@ -12,7 +12,8 @@
     "baseUrl": ".",
     "moduleResolution": "node",
     "paths": {
-      "@class/*": [ "./src/Classes/*" ]
+      "@class/*": [ "./src/Classes/*" ],
+      "@page/*":  [ "./src/Pages/*" ]
     },
     "plugins": [
       {
