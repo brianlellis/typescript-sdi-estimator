@@ -15,8 +15,7 @@ const BROWSER_HISTORY = new BrowserHistory( BROWSER_CLASSES , 'home' , APP_ELE )
 
 document.querySelectorAll('.nav').forEach( ele => {
   ele.addEventListener( 'click' , event => {
-    const ELE          = event.target as HTMLElement;
-    const CLASS_CHECK  = ELE.innerText;
-    BROWSER_HISTORY.forward( CLASS_CHECK , APP_ELE );
+    const ELE = event.target as HTMLElement;
+    BROWSER_HISTORY.forward( ELE.innerText );
   });
 });
