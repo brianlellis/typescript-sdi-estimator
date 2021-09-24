@@ -10,7 +10,7 @@ $ npm run serve
 
 ## Resource Estimators
 ### Databases
-# MySQL ( Expansion to other SQL DBs are rough estimates )
+# MySQL ( Other SQL data types are rough estimates )
 These values are done by the GUI
 ```
 table:ROW_COUNT {
