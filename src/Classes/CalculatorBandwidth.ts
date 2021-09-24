@@ -1,16 +1,22 @@
 export default class CalculatorBandwidth {
   private DAYS_IN_YEAR = 365.25;
   private DAYS_MONTHLY = 365.25 / 12;
-
-  // DATA TRANSFER
-  // Data transfer is the total amount of data to be transferred in a given time, usually measured in month.
-
-  // BANDWIDTH
-  // Bandwidth is the measure of maximum data that can be transferred in a given time, usually measured in seconds.
+  private READ_WRITE_ASSUMPTIONS = {
+    read_heavy: { // 5:1
+      read:   0.8,
+      write:  0.2
+    },
+    write_heavy: { // 1:5
+      read:   0.2,
+      write:  0.8
+    },
+    balanced: { // 1:1
+      read:   0.5,
+      write:  0.5
+    }
+  }
 
   // WITHOUT DOWNLOADS
-  // Bandwidth needed = Average Page Views x Average Page Size x Average Daily Visitors x Number of days in a month (30)
-  //                    x Redundant Factor
   // Average Daily Visitors: The total number of monthly visitors/ ( 365.25 / 12 ).
   // Average Page Size: The average size of your web page.
   // Average Page Views: The average pages viewed per visitor. | Page Views / Visits = Average Page Views per Visit
@@ -27,13 +33,7 @@ export default class CalculatorBandwidth {
   }
 
   // WITH DOWNLOADS
-  // Bandwidth needed = [(Average Page Views x Average Page Size x Average Daily Visitors) + (Average Download per day
-  //                    x Average File Size) ] x Number of days in a month (30) x Redundant Factor
-  // Average Daily Visitors: The total number of monthly visitors/ 30.
-  // Average Page Size: The average size of your web page
-  // Average Page Views: The average page viewed per visitor
   // Average File Size: The total file size divided to the number of files
-  // Redundant Factor: A safety factor ranged from 1.3 – 1.8.
   calcWithDownloads(
     avg_page_views: number = 3,
     avg_page_size: number = 2,
@@ -51,6 +51,17 @@ export default class CalculatorBandwidth {
     const PAGE_CALC       = avg_page_views * avg_page_size * avg_daily_visits;
     const FILE_CALC       = AVG_FILE_TOTAL * avg_downloads;
     return ( PAGE_CALC + FILE_CALC ) * this.DAYS_MONTHLY *  redundant_factor;
+  }
+
+  // This can be based on end users or internal organization users
+  // this covers both upload and download
+  calcFileStream(
+      max_file_size: number = 2,
+      avg_file_size_type: string = 'mb',
+      avg_uploads: number = 5
+  ): number {
+    max_file_size = this.convertToBytes( max_file_size , avg_file_size_type );
+    return max_file_size * avg_uploads;
   }
 
   convertToBytes( value: number , type: string = 'mb' ): number {
