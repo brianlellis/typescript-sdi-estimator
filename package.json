@@ -12,12 +12,12 @@
     }
   },
   "scripts": {
-    "test":     "echo \"Error: no test specified\" && exit 1",
-    "lint":     "eslint ./src --ext .ts",
-    "lintfix":  "eslint ./src --fix --ext .ts",
-    "tsc":      "npm run lint && ttsc -P ./tsconfig.json",
-    "serve":    "npm run tsc && npx serve ./dist",
-    "watch":    "npm-watch"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ./src --ext .ts",
+    "lintfix": "eslint ./src --fix --ext .ts",
+    "tsc": "npm run lintfix && ttsc -P ./tsconfig.json",
+    "serve": "npm run tsc && npx serve ./dist",
+    "watch": "npm-watch"
   },
   "author": "Brian Ellis",
   "license": "ISC",
