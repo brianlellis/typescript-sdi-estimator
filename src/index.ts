@@ -2,13 +2,10 @@ import BrowserHistory   from '@class/BrowserHistory';
 import PageHome         from '@page/PageHome';
 import PageMySql        from '@page/PageMySql';
 
-const PAGE_HOME   = new PageHome();
-const PAGE_MYSQL  = new PageMySql();
-const APP_ELE     = document.getElementById( 'app' ) as HTMLElement;
-
+const APP_ELE         = document.getElementById( 'app' ) as HTMLElement;
 const BROWSER_CLASSES = {
-  'home':  PAGE_HOME.init,
-  'mysql': PAGE_MYSQL.init
+  'home':  new PageHome(),
+  'mysql': new PageMySql()
 };
 
 const BROWSER_HISTORY = new BrowserHistory( BROWSER_CLASSES , 'home' , APP_ELE );

@@ -9,16 +9,16 @@ export default class BrowserHistory {
     window.history.replaceState({ init_class: init_class } , '', '' );
 
     window.onpopstate = event => {
-      this.render( this[ 'class_list' ][ event.state.init_class ] );
+      this.render( this[ 'class_list' ][ event.state.init_class ][ 'init' ] );
     };
 
-    this.render( this[ 'class_list' ][ init_class ] );
+    this.render( this[ 'class_list' ][ init_class ][ 'init' ] );
   }
 
   forward( init_class: string ): void {
     init_class = init_class.toLowerCase();
     window.history.pushState( { init_class: init_class } , '', '' );
-    this.render( this[ 'class_list' ][ init_class ] );
+    this.render( this[ 'class_list' ][ init_class ][ 'init' ] );
   }
 
   render( class_init: any ): void {
