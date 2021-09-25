@@ -1,6 +1,8 @@
 export default class CalculatorBandwidth {
   private DAYS_IN_YEAR = 365.25;
   private DAYS_MONTHLY = 365.25 / 12;
+
+  // Also requires a custom ratio to be used EX. read: 0.99 write: 0.01
   private READ_WRITE_ASSUMPTIONS = {
     read_heavy: { // 5:1
       read:   0.8,
@@ -56,9 +58,9 @@ export default class CalculatorBandwidth {
   // This can be based on end users or internal organization users
   // this covers both upload and download
   calcFileStream(
-      max_file_size: number = 2,
-      avg_file_size_type: string = 'mb',
-      avg_uploads: number = 5
+    max_file_size: number = 2,
+    avg_file_size_type: string = 'mb',
+    avg_uploads: number = 5
   ): number {
     max_file_size = this.convertToBytes( max_file_size , avg_file_size_type );
     return max_file_size * avg_uploads;
