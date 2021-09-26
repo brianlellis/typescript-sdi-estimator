@@ -23,7 +23,6 @@ export default class BrowserHistory {
 
   render( acting_class: any ): void {
     this.app_ele_target.innerHTML = '';
-    console.log( acting_class );
     acting_class.init( this.app_ele_target , acting_class );
   }
 }

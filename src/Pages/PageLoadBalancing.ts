@@ -52,14 +52,89 @@ export default class PageLoadBalancing {
       </tbody></table>
       
       <h3>Where can Load Balancers Be Placed?</h3>
-      <ul>
-        <li>Between client browser and application servers</li>
-        <li>Between server and database servers</li>
-        <li>Between server and cache servers</li>
-      </ul>
+      <table><tbody>
+        <tr>
+          <td>Between client browser and application servers</td>
+          <td>Between server and database servers</td>
+          <td>Between server and cache servers</td>
+        </tr>
+      </tbody></table>
+      
+      <h3>General Definitions</h3>
+      <table><tbody>
+        <tr>
+          <td>
+            Sticky sessions<br />
+            Mechanism to route requests from the same client to the same target. Elastic Load Balancers 
+            support sticky sessions.
+          </td>
+        </tr>
+      </tbody></table>
     `;
 
+
     WRAP.append( ELE );
-    append_element.append( WRAP );
+    append_element.append( WRAP , this.domLoadBalanceChooser() );
+  }
+
+  domLoadBalanceChooser() {
+    const HTML = `
+      <div class="summary"></div>
+      <table class="load-balancer-choice"><tbody>
+        <tr>
+          <td>
+            <ul>
+              <li class="host-select active">AWS</li>
+              <li class="host-select">Google Cloud</li>
+              <li class="host-select">Rackspace</li>
+            </ul>
+          </td>
+          <td id="host-aws-load-balance-options">
+            <ul>
+              <li>
+                <strong>Round robin routing algorithm</strong><br /><br />
+                Application (ELB2)<br />
+                - Fixed Response?<br />
+                - Fixed Redirection?<br />
+                - Offload User Auth? ( OIDC, SAML, LDAP, Facebook, Google )<br />
+                - Automatic scaling of capacity<br />
+                - Specify HTTP response for health<br />
+                - Use only ALB generated cookies?<br />
+                - Path based routing?<br />
+                - Protocol ( HTTP, HTTPS, HTTP/2, WebSockets )
+              </li>
+              <li>
+                <strong>
+                  Flow hash routing algorithm<br />
+                  Possibly flow of traffic and where it originates
+                </strong><br /><br />
+                Network (ELB2)<br />
+                - Network only ( doesn't see cookies, headers, etc )<br />
+                - Layer 4 ( TCP , UPD , TLS )<br />
+                - Generally not used for web apps
+              </li>
+              <li>
+                <strong>
+                  Round robin routing algorithm for TCP listeners<br />
+                  Least outstanding requests routing algorithm for HTTP and HTTPS listeners
+                </strong><br /><br />
+                Classic (Elastic ELB1)<br />
+                - Running EC2 Classic?<br />
+                - Need sticky (custom app) session cookies?<br />
+                - General health check (auto)<br />
+                - Protocol ( HTTP, HTTPS, TCP, SSL )<br />
+                - Auth done by application
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody></table>
+    `;
+
+    const ELE = Object.assign( document.createElement('div' ) , { id: 'load-balance-chooser' } );
+    ELE.innerHTML = HTML;
+
+
+    return ELE;
   }
 }
