@@ -7,6 +7,7 @@ $ npm run serve
 # What is going on?
 1. Custom SPA for simplicity
 2. Resource estimators
+3. API Endpoint Scaffold
 
 ## Resource Estimators
 ### Databases
@@ -30,6 +31,34 @@ CalculatorBandwidth.calcWithoutDownloads();
 ```javascript
 CalculatorBandwidth.calcFileStream();
 ```
+## API Endpoint Scaffold
+### Global Options
+```
+use_subdomain: yes|no // will remove /api/ url path prefix
+use_domain: yes|no // will remove /api/ url path prefix
+allow_all_search: yes|no // makes the id segment of the path optional
+```
 
+### Creation
+```
+endpoint {
+  method: GET|POST|PUT|DELETE
+  param: {name}={type} ?:optional
+}
+
+EXAMPLE:
+users {
+  method: get
+  param: name=string?
+}
+
+TRANSLATES TO:
+Methods:
+GET
+
+Params:
+name=string?
+/api/v1/users/{id}
+```
 # TODO
 1. Expand database calcs beyond MySQL relational
