@@ -4,7 +4,7 @@ export default class PageLoadBalancing {
     const ELE  = document.createElement('div');
     ELE.innerHTML = `
       <h1>Need to create a diagram mapper for the resource flow</h1>
-      
+      <h3>Discuss Health Checks, and the possible need for redundant LBs for availability</h3>
       <table><tbody>
       <tr><td>
         <h3>Round Robin</h3>
@@ -50,6 +50,13 @@ export default class PageLoadBalancing {
         </p> 
       </td></tr>
       </tbody></table>
+      
+      <h3>Where can Load Balancers Be Placed?</h3>
+      <ul>
+        <li>Between client browser and application servers</li>
+        <li>Between server and database servers</li>
+        <li>Between server and cache servers</li>
+      </ul>
     `;
 
     WRAP.append( ELE );
