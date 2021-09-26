@@ -56,26 +56,26 @@ export default class PageHome {
       </tbody></table>
       
       <h1>General Order of Questions</h1>
-      <ol>
-        <li>What is it?</li>
-        <li>Why we need it?</li>
-        <li>Requirements ( MVP )</li>
-        <li>Goals ( Possibly Stretch )</li>
-        <li>Order of Importance Capacity Estimations</li>
-        <li>Schema Design, Size Est. and DB Type</li>
-        <li>High-Level Estimate from Steps 5-6</li>
-        <li>API Endpoint Design (This still needs throttling concerns)</li>
+      <ul class="home-bottom">
+        <li>1. What is it?</li>
+        <li>2. Why we need it?</li>
+        <li>3. Requirements ( MVP )</li>
+        <li>4. Goals ( Possibly Stretch )</li>
+        <li>5. Order of Importance Capacity Estimations</li>
+        <li>6. Schema Design, Size Est. and DB Type</li>
+        <li>7. High-Level Estimate from Steps 5-6</li>
+        <li>8. API Endpoint Design (This still needs throttling concerns)</li>
         <li>
-            Security, Permisssions, Usergroups, user allowed to control public access of their data (Application level)
+            9. Security, Permisssions, Usergroups, user allowed to control public access of their data (Application level)
         </li>
-        <li>DB Partition, redundancy, sharding, replication, purge, cleanup, deduplication</li>
-        <li>In memory caching needs and other cache methods</li>
-        <li>Metadata partition mapping</li>
-        <li>Load Balancing</li>
-        <li>Client access throttling, region locking</li>
-        <li>Telemetry and Analytics</li>
-        <li>Server/Node Monitoring Tool Reqs</li>
-      </ol>
+        <li>10. DB Partition, redundancy, sharding, replication, purge, cleanup, deduplication</li>
+        <li>11. In memory caching needs and other cache methods</li>
+        <li>12. Metadata partition mapping</li>
+        <li>13. Load Balancing</li>
+        <li>14. Client access throttling, region locking</li>
+        <li>15. Telemetry and Analytics</li>
+        <li>16. Server/Node Monitoring Tool Reqs</li>
+      </ul>
     `;
     WRAP.append( ELE );
     append_element.append( WRAP );
