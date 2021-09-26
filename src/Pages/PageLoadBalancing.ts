@@ -80,6 +80,19 @@ export default class PageLoadBalancing {
             to increase read performance
           </td>
           <td>
+            <strong>Data Deduplication</strong>
+            At its simplest definition, data deduplication refers to a technique for eliminating redundant data in a 
+            data set. In the process of deduplication, extra copies of the same data are deleted, leaving only one copy 
+            to be stored. The data is analyzed to identify duplicate byte patterns and ensure the single instance is 
+            indeed the only file. Then, duplicates are replaced with a reference that points to the stored chunk.
+            <br /><br />
+            Consider an email server that contains 100 instances of the same 1 MB file attachment, for example a sales 
+            presentation with graphics sent to everyone on the global sales staff. Without data duplication, if everyone 
+            backs up his email inbox, all 100 instances of the presentation are saved, requiring 100 MB of storage space. 
+            With data deduplication, only one instance of the attachment is actually stored; each subsequent instance 
+            is referenced back to the one saved copy
+          </td>
+          <td>
             <strong>File Storage: EFS , S3 , Glacier</strong><br />
               EFS - If you need near same server fetch performance
               S3 - Somewhat slower but still usable for multi instance coverage
