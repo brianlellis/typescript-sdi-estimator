@@ -60,7 +60,7 @@ export default class PageMySql {
 
           db_data[db_table]['byte_size'] = db_table_size;
           brace_check = '}';
-        } else {
+        } else if ( LINE_VAL.trim() ) {
           const DATA_TYPE = LINE_VAL.split(':')[1];
           if (DATA_TYPE) {
             const DATA_VAL = CALC_MYSQL.validType(DATA_TYPE);

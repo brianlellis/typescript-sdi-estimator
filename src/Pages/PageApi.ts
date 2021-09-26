@@ -1,7 +1,8 @@
 export default class PageApi {
   init( append_element: HTMLElement ): void {
     const DOMAIN_USAGE = Object.assign(document.createElement('p'), {id: 'total-byte-conversion'}),
-      EDITOR = Object.assign(document.createElement('textarea'), {id: 'mysql-editor'});
+      ENDPOINT_WRAP = Object.assign(document.createElement('div'), {id: 'endpoint-wrap'}),
+      EDITOR        = Object.assign(document.createElement('textarea'), {id: 'mysql-editor'});
 
     EDITOR.style.height       = '70vh';
     EDITOR.style.width        = '30vw';
@@ -16,8 +17,8 @@ export default class PageApi {
         TEXT = TARGET.value.split('\n');
 
       let brace_check: string   = '',
-        db_data: any            = {},
-        db_table: string        = '',
+        api_data: any           = {},
+        cur_endpoint: string    = '',
         use_subdomain: boolean  = false,
         use_domain: boolean     = false,
         api_version: number     = 1;
@@ -30,21 +31,17 @@ export default class PageApi {
             console.log('Brace Mismatch 2 {');
             break;
           }
+          brace_check = '{'; // error checking on brace balance
 
-          brace_check = '{';
-
-          const TABLE_ROW = LINE_VAL.replace('{', '').split(':');
-          db_table = TABLE_ROW[0];
-
-          if (db_table) {
-            if (db_data[db_table]) {
+          const TABLE_ROW = LINE_VAL.replace('{', '').trim();
+          if ( TABLE_ROW ) {
+            if (api_data[ TABLE_ROW ]) {
               console.log('Duplicate table declaration');
               break;
             }
 
-            db_data[db_table] = {
-              byte_size: 0
-            };
+            api_data[ TABLE_ROW ] = { method: [] , param: [], allow_all_search: false };
+            cur_endpoint = TABLE_ROW;
           }
         } else if (LINE_VAL.indexOf('}') > -1) {
           if ('{' !== brace_check) {
@@ -59,27 +56,54 @@ export default class PageApi {
         } else if ( LINE_VAL.indexOf( 'use_domain' ) > -1 ) {
           const SETTING = LINE_VAL.split(':');
           if ( SETTING[1] ) use_subdomain = SETTING[1].toLowerCase().indexOf( 'y' ) > -1;
-        } else if ( LINE_VAL.indexOf( 'api_version' ) > -1 ) {
+        } else if ( LINE_VAL.indexOf( 'version' ) > -1 ) {
           const SETTING = LINE_VAL.split(':');
           if ( SETTING[1] ) api_version = parseInt( SETTING[1] );
+        } else if ( LINE_VAL.indexOf( 'allow_all_search' ) > -1 ) {
+          const SETTING = LINE_VAL.split(':');
+          if ( SETTING[1] ) api_data[ cur_endpoint ][ 'allow_all_search' ] = SETTING[1].toLowerCase().indexOf( 'y' ) > -1;
+        } else if ( LINE_VAL ) {
+          if ( LINE_VAL.indexOf( 'method' ) > -1 ) {
+            const METHOD = LINE_VAL.replace( 'method:' , '').toUpperCase();
+            if ( METHOD.match( /PUT|POST|GET|DELETE/g ) ) api_data[ cur_endpoint ][ 'method' ].push( METHOD );
+          } else if ( LINE_VAL.indexOf( 'param' ) > -1 ) {
+            const PARAM = LINE_VAL.replace( 'param:' , '').toLowerCase();
+            api_data[ cur_endpoint ][ 'param' ].push( PARAM );
+          }
         }
       }
 
       let domain_text = ( use_domain || use_subdomain ) ? 'No' : 'Yes';
       DOMAIN_USAGE.innerText = `Require /api/ in path? ${ domain_text }
         Version: ${ api_version }`;
+
+      let endpoint_wrap_html  = '';
+      let str_prefix          = ( use_domain || use_subdomain ) ? '/' : '/api/';
+      str_prefix += `v${ api_version }/`;
+
+      for (const KEY in api_data ) {
+        if ( api_data[ KEY ][ 'method' ].length ) {
+          let str_methods = '<strong>Methods: </strong>';
+          for (const METHOD of api_data[ KEY ][ 'method' ] ) {
+            str_methods += METHOD+' ';
+          }
+          endpoint_wrap_html += `${ str_methods }<br />`;
+        }
+        if ( api_data[ KEY ][ 'param' ].length ) {
+          let str_params = '<strong>Params:</strong><br />';
+          for (const PARAM of api_data[ KEY ][ 'param' ] ) {
+            str_params += PARAM+'<br />';
+          }
+          endpoint_wrap_html += `${ str_params }<br />`;
+        }
+
+        let str_allow_all = api_data[ KEY ][ 'allow_all_search' ] ? '{id?}' : '{id}';
+        endpoint_wrap_html += `${ str_prefix }${ KEY }/${ str_allow_all }`;
+        endpoint_wrap_html += '<br /><br />';
+      }
+      ENDPOINT_WRAP.innerHTML = endpoint_wrap_html;
     });
 
-    // let table_sizes = '';
-    // for (const TABLE_NAME in db_data) {
-    //   const TABLE_TOTAL_SIZE = db_data[TABLE_NAME]['byte_size'] * db_data[TABLE_NAME]['row_count'];
-    //   total_size += TABLE_TOTAL_SIZE;
-    //   table_sizes += `
-    //           ${TABLE_NAME}
-    //           \tRows: ${db_data[TABLE_NAME]['row_count']}`;
-    // }
-    //
-    // const TOTAL_BYTE_ELE = document.getElementById('total-byte-conversion') as HTMLTextAreaElement;
-    append_element.append( EDITOR , DOMAIN_USAGE );
+    append_element.append( EDITOR , DOMAIN_USAGE , ENDPOINT_WRAP );
   }
 }
