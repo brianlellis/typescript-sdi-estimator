@@ -60,13 +60,25 @@ export default class PageLoadBalancing {
         </tr>
       </tbody></table>
       
-      <h3>General Definitions</h3>
+      <h3>General Definitions and Strategies</h3>
       <table><tbody>
         <tr>
           <td>
-            Sticky sessions<br />
+            <strong>Sticky sessions</strong><br />
             Mechanism to route requests from the same client to the same target. Elastic Load Balancers 
             support sticky sessions.
+          </td>
+          <td>
+            <strong>Database Read Replication</strong><br />
+            You can create one or more replicas of a given source DB Instance and serve high-volume application read 
+            traffic from multiple copies of your data, thereby increasing aggregate read throughput. Read replicas can 
+            also be promoted when needed to become standalone DB instances. 
+          </td>
+          <td>
+            <strong>File Storage: EFS , S3 , Glacier</strong><br />
+              EFS - If you need near same server fetch performance
+              S3 - Somewhat slower but still usable for multi instance coverage
+              Glacier - Archiving of assets only, do not use for CDN
           </td>
         </tr>
       </tbody></table>
@@ -79,7 +91,7 @@ export default class PageLoadBalancing {
 
   domLoadBalanceChooser() {
     const HTML = `
-      <div class="summary"></div>
+      <h3>Load Balancing Services</h3>
       <table class="load-balancer-choice"><tbody>
         <tr>
           <td>
