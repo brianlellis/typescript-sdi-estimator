@@ -80,7 +80,7 @@ export default class PageLoadBalancing {
             to increase read performance
           </td>
           <td>
-            <strong>Data Deduplication</strong>
+            <strong>Data Deduplication</strong><br />
             At its simplest definition, data deduplication refers to a technique for eliminating redundant data in a 
             data set. In the process of deduplication, extra copies of the same data are deleted, leaving only one copy 
             to be stored. The data is analyzed to identify duplicate byte patterns and ensure the single instance is 
