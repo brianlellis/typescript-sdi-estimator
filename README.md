@@ -37,6 +37,7 @@ CalculatorBandwidth.calcFileStream();
 use_subdomain: yes|no // will remove /api/ url path prefix
 use_domain: yes|no // will remove /api/ url path prefix
 allow_all_search: yes|no // makes the id segment of the path optional
+api_version: number // updates the version segment of the path
 ```
 
 ### Creation
