@@ -7,14 +7,14 @@ export default class PageLoadBalancing {
       
       <table><tbody>
       <tr><td>
-        <h2>Round Robin</h2>
+        <h3>Round Robin</h3>
         <p>
           Round-robin load balancing is one of the simplest and most used load balancing algorithms. Client requests are 
           distributed to application servers in rotation.
         </p>
       </td>
       <td>
-        <h2>Weighted Round Robin</h2>
+        <h3>Weighted Round Robin</h3>
         <p>
           Weighted Round Robin builds on the simple Round-robin load balancing algorithm to account for differing 
           application server characteristics. The administrator assigns a weight to each application server based on
@@ -24,7 +24,7 @@ export default class PageLoadBalancing {
         </p>
       </td>
       <td>
-        <h2>Least Connection</h2>
+        <h3>Least Connection</h3>
         <p>
           Least Connection load balancing is a dynamic load balancing algorithm where client requests are distributed 
           to the application server with the least number of active connections at the time the client request is 
@@ -34,14 +34,14 @@ export default class PageLoadBalancing {
         </p>
       </td>
       <td>
-        <h2>Weighted Least Connection</h2>
+        <h3>Weighted Least Connection</h3>
         <p>
           Weighted Least Connection builds on the Least Connection load balancing algorithm to account for differing 
           application server characteristics.
         </p>
       </td>
       <td>
-        <h2>Resource Based (Adaptive)</h2>
+        <h3>Resource Based (Adaptive)</h3>
         <p>
           Resource Based (Adaptive) is a load balancing algorithm requires an agent to be installed on the application 
           server that reports on its current load to the load balancer. The installed agent monitors the application 
