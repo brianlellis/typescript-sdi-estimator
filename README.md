@@ -10,8 +10,8 @@ $ npm run serve
 3. API Endpoint Scaffold
 
 ## Resource Estimators
-### Databases
-# MySQL ( Other SQL data types are rough estimates )
+### DB - MySQL ( Other SQL data types are rough estimates )
+__ED Diagram utility: https://dbdiagram.io/__  
 These values are done by the GUI
 ```
 table:ROW_COUNT {
