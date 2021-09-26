@@ -69,10 +69,15 @@ export default class PageLoadBalancing {
             support sticky sessions.
           </td>
           <td>
-            <strong>Database Read Replication</strong><br />
+            <strong>Database Read Replication/Mirroring</strong><br />
             You can create one or more replicas of a given source DB Instance and serve high-volume application read 
             traffic from multiple copies of your data, thereby increasing aggregate read throughput. Read replicas can 
             also be promoted when needed to become standalone DB instances. 
+          </td>
+          <td>
+            <strong>Database Sharding</strong><br />
+            Creating segmented groups of data based on rules which a router will then determine which shard to use
+            to increase read performance
           </td>
           <td>
             <strong>File Storage: EFS , S3 , Glacier</strong><br />
@@ -86,7 +91,62 @@ export default class PageLoadBalancing {
 
 
     WRAP.append( ELE );
-    append_element.append( WRAP , this.domLoadBalanceChooser() );
+    append_element.append( WRAP , this.domShardingBreakdown() , this.domLoadBalanceChooser() );
+  }
+
+  domShardingBreakdown() {
+    const HTML = `
+      <h3>Breaking Down Sharding</h3>
+      <table><tbody><tr>
+        <td>
+          <strong>ADVANTAGES</strong><br />
+          - Horizontal Scaling<br />
+          - Speed up query response due to fewer rows
+          - Availability/Reliabilty as outage of one shard doesn't affect all data
+        </td>
+        <td>
+          <strong>DISADVANTAGES</strong><br />
+          - More complex to setup if tools aren't readily used<br />
+          - Management and developing against shards is more intensive<br />
+          - Unbalanced shards due to incorrect rule/route configuration<br />
+          - Will require extra work to unify the shards again
+          - May not be natively supported based on DB type used
+        </td>
+        <td>
+          <strong>ARCHITECTURE - Key/Hash Based</strong><br />
+          Involves using a value taken from newly written data — such as a customer’s ID number, a client application’s 
+          IP address, a ZIP code, etc. — and plugging it into a hash function to determine which shard the data should 
+          go to. <strong>To ensure that entries are placed in the correct shards and in a consistent manner, the values 
+          entered into the hash function should all come from the same column.</strong>
+        </td>
+        <td>
+          <strong>ARCHITECTURE - Range Based</strong><br />
+          Every shard holds a different set of data but they all have an identical schema as one another, as well as 
+          the original database. The application code just reads which range the data falls into and writes it to the 
+          corresponding shard.<strong>More susceptible to data storage hotspots ( unbalancing )</strong>
+        </td>
+        <td>
+          <strong>ARCHITECTURE - GEO Based</strong><br />
+          Shards data based on the geo-location of a person.
+        </td>
+        <td>
+          <strong>ARCHITECTURE - Directory/Delivery Zone Based</strong><br />
+          In a nutshell, a lookup table is a table that holds a static set of information about where specific data can 
+          be found. The main appeal of directory based sharding is its flexibility. Range based sharding architectures 
+          limit you to specifying ranges of values, while key based ones limit you to using a fixed hash function which, 
+          as mentioned previously, can be exceedingly difficult to change later on. Directory based sharding, on the 
+          other hand, allows you to use whatever system or algorithm you want to assign data entries to shards<br />
+        </td>
+        <td>
+          <strong>RELIABILITY THROUGH REPLICATION</strong><br />
+          To increase reliability of the shards replication should occur on the shards to allow for fail over
+        </td>
+      </tr></tbody></table>
+    `;
+
+    const ELE = document.createElement('div' );
+    ELE.innerHTML = HTML;
+    return ELE;
   }
 
   domLoadBalanceChooser() {
@@ -145,8 +205,6 @@ export default class PageLoadBalancing {
 
     const ELE = Object.assign( document.createElement('div' ) , { id: 'load-balance-chooser' } );
     ELE.innerHTML = HTML;
-
-
     return ELE;
   }
 }
