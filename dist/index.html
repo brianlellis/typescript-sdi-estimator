@@ -3,6 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+  <style>
+    nav ul {
+      list-style-type:  none;
+      padding:          0;
+    }
+
+    nav li {
+      display:    inline-block;
+      background: #151515;
+      color:      #FFFFFF;
+      padding:    0.5vh 1vw;
+      cursor:     pointer;
+    }
+    nav li:hover {
+      background: #343434;
+    }
+
+    td { vertical-align: top; padding: 0 1vw; }
+  </style>
 </head>
 <body>
   <nav>
@@ -10,6 +29,7 @@
       <li class="nav">Home</li>
       <li class="nav">Mysql</li>
       <li class="nav">Api</li>
+      <li class="nav">LoadBalancing</li>
     </ul>
   </nav>
   <div id="app"></div>
