@@ -87,6 +87,47 @@ export default class PageCaching {
         </p>
       </td></tr>
       </tbody></table>
+      
+      <h1>When to use?</h1>
+      <table><tbody>
+      <tr><td>
+        <h3>SQL</h3>
+        <ol>
+          <li>
+            We need to ensure ACID compliance. ACID compliance reduces anomalies and protects the integrity of your 
+            database by prescribing exactly how transactions interact with the database. Generally, NoSQL databases 
+            sacrifice ACID compliance for scalability and processing speed, but for many e-commerce and financial 
+            applications, an ACID-compliant database remains the preferred option.
+          </li>
+          <li>
+            Your data is structured and unchanging. If your business is not experiencing massive growth that would 
+            require more servers and if you’re only working with data that is consistent, then there may be no reason 
+            to use a system designed to support a variety of data types and high traffic volume.
+          </li>
+        </ol>
+      </td>
+      <td>
+        <h3>NoSQL</h3>
+        <ol>
+          <li>
+            Storing large volumes of data that often have little to no structure. A NoSQL database sets no limits on the 
+            types of data we can store together and allows us to add new types as the need changes. With document-based 
+            databases, you can store data in one place without having to define what “types” of data those are in advance.
+          </li>
+          <li>
+            Making the most of cloud computing and storage. Cloud-based storage is an excellent cost-saving solution but 
+            requires data to be easily spread across multiple servers to scale up. Using commodity (affordable, smaller) 
+            hardware on-site or in the cloud saves you the hassle of additional software and NoSQL databases like 
+            Cassandra are designed to be scaled across multiple data centers out of the box, without a lot of headaches.
+          </li>
+          <li>
+            Rapid development. NoSQL is extremely useful for rapid development as it doesn’t need to be prepped ahead of 
+            time. If you’re working on quick iterations of your system which require making frequent updates to the data 
+            structure without a lot of downtime between versions, a relational database will slow you down.
+          </li>
+        </ol>
+      </td></tr>
+      </tbody></table>
     `;
 
     WRAP.append( ELE );
