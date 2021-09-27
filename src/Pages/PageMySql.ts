@@ -10,7 +10,7 @@ export default class PageMySql {
   }
 
   init( append_element: HTMLElement , acting_class: any ): void {
-    const TOTAL_BYTE_ELE = Object.assign(document.createElement('p'), {id: 'total-byte-conversion'}),
+    const TOTAL_BYTE_ELE = Object.assign(document.createElement('div'), {id: 'total-byte-conversion'}),
       EDITOR = Object.assign(document.createElement('textarea'), {id: 'mysql-editor'});
 
     EDITOR.style.height       = '70vh';
@@ -39,6 +39,7 @@ export default class PageMySql {
     let total_size: number = 0,
       brace_check: string = '',
       db_data: any = {},
+      fk_keys: string[] = [],
       db_table: string = '',
       db_row_ct: string = '',
       db_table_size: number = 0;
@@ -80,9 +81,15 @@ export default class PageMySql {
         brace_check = '}';
       } else if ( LINE_VAL.trim() ) {
         const DATA_TYPE = LINE_VAL.split(':')[1];
+        const DB_COL    = LINE_VAL.split(':')[0];
         if (DATA_TYPE) {
           const DATA_VAL = this.ref_class.validType(DATA_TYPE);
           if (DATA_VAL > 0) db_table_size += DATA_VAL;
+
+          if ( DB_COL.indexOf( '_id' ) > -1 ) {
+            let fk_str = `${ db_table } > ${ DB_COL.replace( '_id' , '') }`;
+            fk_keys.push( fk_str );
+          }
         }
       }
     }
@@ -91,13 +98,31 @@ export default class PageMySql {
     for (const TABLE_NAME in db_data) {
       const TABLE_TOTAL_SIZE = db_data[TABLE_NAME]['byte_size'] * db_data[TABLE_NAME]['row_count'];
       total_size += TABLE_TOTAL_SIZE;
+
       table_sizes += `
-              ${TABLE_NAME} 
-              \tRows: ${db_data[TABLE_NAME]['row_count']} 
-              \tSize: ${this.ref_class.formatBytes(TABLE_TOTAL_SIZE)}`;
+        <div class="mysql-table-info">
+          <h4>${ TABLE_NAME }</h4>
+          <p>
+            Rows: ${db_data[TABLE_NAME]['row_count']}<br />
+            Size: ${this.ref_class.formatBytes(TABLE_TOTAL_SIZE)}
+          </p>
+        </div>
+      `;
+    }
+    table_sizes += '</div>';
+    table_sizes = `
+        <h3>Total Database: ${ this.ref_class.formatBytes(total_size) }</h3>
+        <div id="mysql-table-wrap">${table_sizes}`;
+
+    if ( fk_keys.length ) {
+      table_sizes += '<div id="mysql-foreign-key-wrap"><h3>Foriegn Key Table Links</h3>';
+      for (const VAL of fk_keys ) {
+        table_sizes += `<h4>${ VAL }</h4>`;
+      }
+      table_sizes += '</div>';
     }
 
     const TOTAL_BYTE_ELE = document.getElementById('total-byte-conversion') as HTMLTextAreaElement;
-    TOTAL_BYTE_ELE.innerText = 'Total Database: ' + this.ref_class.formatBytes(total_size) + table_sizes;
+    TOTAL_BYTE_ELE.innerHTML = table_sizes;
   }
 }

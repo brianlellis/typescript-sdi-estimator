@@ -101,6 +101,19 @@
       padding-left: 10px;
       margin: 0;
     }
+
+    #mysql-table-wrap h4,
+    #mysql-foreign-key-wrap h4 {
+      margin: 0;
+    }
+    #mysql-table-wrap > div:nth-child(even),
+    #mysql-foreign-key-wrap h4:nth-child(even) {
+      background: #dddddd;
+    }
+    #mysql-table-wrap > div:nth-child(odd),
+    #mysql-foreign-key-wrap h4:nth-child(odd) {
+      background: #eeeeee;
+    }
   </style>
 </head>
 <body>
@@ -119,3 +132,25 @@
   <script type="module" src="/index.js"></script>
 </body>
 </html>
+
+<!--user {-->
+<!--name_first:varchar-->
+<!--name_last:varchar-->
+<!--email:varchar-->
+<!--password:varchar-->
+<!--}-->
+
+<!--created_domains: 1500000000 {-->
+<!--user_id:int-->
+<!--domain:varchar-->
+<!--ssl:tinyint-->
+<!--}-->
+
+<!--urlshorten: 15000000000 {-->
+<!--created_domains_id:int-->
+<!--path:varchar-->
+<!--short_url:varchar-->
+<!--custom_url:varchar-->
+<!--expire:date-->
+<!--created_at:date-->
+<!--}-->
