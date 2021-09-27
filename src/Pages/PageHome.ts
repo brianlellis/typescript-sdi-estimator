@@ -64,8 +64,9 @@ export default class PageHome {
           3. API Design<br />
           4. Usergroups, roles and permissions ( could require additional API work )<br />
           5. Email, Support, Chat?<br />
-          6. Message queueing?<br />
-          7. Access Locks<br /> 
+          6. Concurrency Needs<br />
+          7. Message queueing?<br />
+          8. Access Locks<br /> 
           -- Region locking<br />
           -- Request Throttling<br />
           -- Action Limits ( whether API or User based
