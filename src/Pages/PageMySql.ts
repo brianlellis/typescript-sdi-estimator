@@ -57,8 +57,8 @@ export default class PageMySql {
         brace_check = '{';
 
         const TABLE_ROW = LINE_VAL.replace('{', '').split(':');
-        db_table = TABLE_ROW[0];
-        db_row_ct = TABLE_ROW[1];
+        db_table = TABLE_ROW[0].trim();
+        db_row_ct = TABLE_ROW[1].trim();
 
         if (db_table) {
           if (db_data[db_table]) {
