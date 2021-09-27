@@ -57,24 +57,36 @@ export default class PageHome {
       
       <h1>General Order of Questions</h1>
       <ul class="home-bottom">
-        <li>1. What is it?</li>
-        <li>2. Why we need it?</li>
-        <li>3. Requirements ( MVP )</li>
-        <li>4. Goals ( Possibly Stretch )</li>
-        <li>5. Order of Importance Capacity Estimations</li>
-        <li>6. Schema Design, Size Est. and DB Type</li>
-        <li>7. High-Level Estimate from Steps 5-6</li>
-        <li>8. API Endpoint Design (This still needs throttling concerns)</li>
         <li>
-            9. Security, Permisssions, Usergroups, user allowed to control public access of their data (Application level)
+          <h3>1. Needs, Behavior, Constraints, Restrictions</h3>
+          1. What is it and why?<br />
+          2. Data schema and needs?<br />
+          3. API Design<br />
+          4. Usergroups, users, roles, permission ( could require additional API work )<br />
+          5. Email, Support, Chat?<br />
+          6. Message queueing?<br />
+          7. Access Locks<br /> 
+          -- Region locking<br />
+          -- Request Throttling<br />
+          -- Action Limits ( whether API or User based
         </li>
-        <li>10. DB Partition, redundancy, sharding, replication, purge, cleanup, deduplication</li>
-        <li>11. In memory caching needs and other cache methods</li>
-        <li>12. Metadata partition mapping</li>
-        <li>13. Load Balancing</li>
-        <li>14. Client access throttling, region locking</li>
-        <li>15. Telemetry and Analytics</li>
-        <li>16. Server/Node Monitoring Tool Reqs</li>
+        <li>
+          <h3>2. Capacity and Storage</h3>
+          1. User traffic estimates<br />
+          2. Page size estimation<br />
+          3. File storage needs<br />
+          4. Data estimation based on timeline span<br />
+          5. Read/Write Balance
+        </li>
+        <li>
+          <h3>3. Performance , Telemetry and Analytics</h3>
+          1. Monolith, micro-service, lambdas<br />
+          2. Micro-Frontends or not<br />
+          3. Load Balancing <br />
+          4. DB Redundancy and Sharding concerns<br />
+          5. Caching Concerns ( Data/Redis , static assets , etc. )<br />
+          6. File Delivery ( On server, S3, EFS, CDN, etc. )
+        </li>
       </ul>
     `;
     WRAP.append( ELE );
