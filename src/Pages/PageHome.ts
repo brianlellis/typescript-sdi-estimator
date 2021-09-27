@@ -62,7 +62,7 @@ export default class PageHome {
           1. What is it and why?<br />
           2. Data schema and needs?<br />
           3. API Design<br />
-          4. Usergroups, users, roles, permission ( could require additional API work )<br />
+          4. Usergroups, roles and permissions ( could require additional API work )<br />
           5. Email, Support, Chat?<br />
           6. Message queueing?<br />
           7. Access Locks<br /> 
