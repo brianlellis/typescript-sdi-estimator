@@ -57,8 +57,8 @@ export default class PageMySql {
         brace_check = '{';
 
         const TABLE_ROW = LINE_VAL.replace('{', '').split(':');
-        db_table = TABLE_ROW[0].trim();
-        db_row_ct = TABLE_ROW[1].trim();
+        db_table = TABLE_ROW[0];
+        db_row_ct = TABLE_ROW[1];
 
         if (db_table) {
           if (db_data[db_table]) {
@@ -80,8 +80,8 @@ export default class PageMySql {
         db_data[db_table]['byte_size'] = db_table_size;
         brace_check = '}';
       } else if ( LINE_VAL.trim() ) {
-        const DATA_TYPE = LINE_VAL.split(':')[1];
-        const DB_COL    = LINE_VAL.split(':')[0];
+        const DATA_TYPE = LINE_VAL.split(':')[1].trim();
+        const DB_COL    = LINE_VAL.split(':')[0].trim();
         if (DATA_TYPE) {
           const DATA_VAL = this.ref_class.validType(DATA_TYPE);
           if (DATA_VAL > 0) db_table_size += DATA_VAL;
